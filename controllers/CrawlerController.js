@@ -12,8 +12,10 @@ class CrawlerController {
         
         // Launch the browser
         const browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            args: ['--no-sandbox', '--disable-setuid-sandbox', 'single-process' ,'--no-zygote'],
+            executablePath: process.env.NODE_ENV === 'production'
+            ? process.env.PUPPETEER_EXCUTABLE_PATH
+            : puppeteer.executablePath(),
         });
         const page = await browser.newPage();
       
@@ -56,8 +58,10 @@ class CrawlerController {
     async crawlMultiplePost(req, res, next){
         // Launch the browser
         const browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            args: ['--no-sandbox', '--disable-setuid-sandbox', 'single-process' ,'--no-zygote'],
+            executablePath: process.env.NODE_ENV === 'production'
+            ? process.env.PUPPETEER_EXCUTABLE_PATH
+            : puppeteer.executablePath(),
         });
         const page = await browser.newPage();
     
